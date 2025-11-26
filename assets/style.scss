@@ -1,0 +1,121 @@
+
+@-webkit-keyframes spinner {
+  0% {
+    -webkit-transform: rotateZ(0deg);
+            transform: rotateZ(0deg);
+  }
+  40% {
+    -webkit-transform: rotateZ(170deg);
+            transform: rotateZ(170deg);
+  }
+  50% {
+    -webkit-transform: rotateZ(280deg);
+            transform: rotateZ(280deg);
+  }
+  60% {
+    -webkit-transform: rotateZ(170deg);
+            transform: rotateZ(170deg);
+  }
+  100% {
+    -webkit-transform: rotateZ(360deg);
+            transform: rotateZ(360deg);
+  }
+}
+
+@keyframes spinner {
+  0% {
+    -webkit-transform: rotateZ(0deg);
+            transform: rotateZ(0deg);
+  }
+  40% {
+    -webkit-transform: rotateZ(170deg);
+            transform: rotateZ(170deg);
+  }
+  50% {
+    -webkit-transform: rotateZ(280deg);
+            transform: rotateZ(280deg);
+  }
+  60% {
+    -webkit-transform: rotateZ(170deg);
+            transform: rotateZ(170deg);
+  }
+  100% {
+    -webkit-transform: rotateZ(360deg);
+            transform: rotateZ(360deg);
+  }
+}
+@-webkit-keyframes spinner-1 {
+  0% {
+    -webkit-transform: rotateZ(0deg);
+            transform: rotateZ(0deg);
+  }
+  100% {
+    -webkit-transform: rotateZ(360deg);
+            transform: rotateZ(360deg);
+  }
+}
+@keyframes spinner-1 {
+  0% {
+    -webkit-transform: rotateZ(0deg);
+            transform: rotateZ(0deg);
+  }
+  100% {
+    -webkit-transform: rotateZ(360deg);
+            transform: rotateZ(360deg);
+  }
+}
+#mn-overlay {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+    z-index: 999;
+    background: rgb(255, 255, 255);
+    .loader{
+        width: 80px;
+        height: 80px;
+        font-family: Quicksand;
+        font-size: 30px;
+        font-weight: 600;
+        color: rgb(58, 78, 229);
+        display: flex;
+        -webkit-box-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        justify-content: center;
+        position: relative;
+        border-width: 1px;
+        border-style: dashed;
+        border-color: rgb(58, 78, 229);
+        border-image: initial;
+        border-radius: 50%;
+        .shape {
+            width: 72px;
+            height: 72px;
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            border-radius: 50%;
+            
+            -webkit-animation: spinner 3s infinite linear;
+                    animation: spinner 3s infinite linear;
+                    &:after {
+                        content: "";
+                        width: 15px;
+                        height: 15px;
+                        display: block;
+                        border-radius: 50%;
+                        background-color: #fff;
+                        border: 1px solid #3a4ee5;
+                        }
+        }
+    }
+}

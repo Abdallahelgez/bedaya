@@ -1,0 +1,54 @@
+{
+  "section_id": "uuid",
+  "template": "sections/ggallery.jinja",
+  "icon": "fal fa-images",
+  "name": {
+    "ar": "مجموعة الصور",
+    "en": "Gallery"
+  },
+  "settings": [
+    {
+      "id": "title",
+      "type": "text",
+      "label": {
+        "ar": "العنوان",
+        "en": "text"
+      }
+    },
+    {
+      "id": "gallery",
+      "type": "list",
+      "label": {
+        "ar": "الصورة",
+        "en": "Picture"
+      },
+      "max_items": 8,
+      "info": {
+        "ar": "",
+        "en": "This is an info text sample here"
+      },
+      "settings": [
+        {
+          "id": "url",
+          "type": "url",
+          "label": {
+            "ar": "الرابط",
+            "en": "Link"
+          }
+        },
+        {
+          "id": "image",
+          "type": "image",
+          "label": {
+            "ar": "الصورة",
+            "en": "Image"
+          },
+          "info": {
+            "ar": "ارفع صورة بحجم 750 * 750 ",
+            "en": "This is an info text sample here"
+          }
+        }
+      ]
+    }
+  ]
+}

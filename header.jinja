@@ -1,0 +1,49 @@
+<header id="{{ sectionId }}" section-id="{{ sectionId }}" class='d-flex flex-column'>
+
+    {# {% include 'template_for_store_messages' %} #}
+    {% set ab_settings=settings %}{% include 'components/header-announcement-bar.jinja' %}
+    {% set multiple_countries = store.countries | length > 1 %}
+    {% set multiple_languages = store.languages | length > 1 %}
+
+    {% set header_settings=settings %}{% include 'components/header-account-lang-currency.jinja' %}
+
+
+
+  <div id="fixed-header" style="z-index: 3">
+    <!-- input search for mobile view -->
+    <div style="z-index: 3">
+        {% set header_settings=settings %}{% include 'components/header-search-header.jinja' %}
+    </div>
+    <div style="position: relative; z-index: -1">
+        <div class="sm-search-div">
+          <div class="autocomplete" style="position: relative">
+            <input type="text"
+                   data-cat-id="{{ category.id if category is defined else '' }}"
+                   class="form-control search-input-input"
+                   placeholder="{% if settings.header_search_placeholder %}{{ settings.header_search_placeholder }}{% else %}{{ _('Search') }}{% endif %}"
+            >
+            <div class="autocomplete-items"></div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+    {% set menu_settings=settings %}{% include 'components/header-sliding-menu.jinja' %}
+    {% set menu_settings=settings %}{% include 'components/header-mega-menu.jinja' %}
+
+    {% set show_country = 'hide_country' not in settings.header_options %}
+    {% set show_language = 'hide_language' not in settings.header_options %}
+    
+
+    {% if (show_country and multiple_countries) or (show_language and multiple_languages) %}
+      <div class="modal" id="langCurrecyModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-body" style="padding: 10px">
+              {% include 'vitrin:shared/locale_modal.jinja' %}
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+</header>
