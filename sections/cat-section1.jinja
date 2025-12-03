@@ -6,8 +6,8 @@
         <div class="mn-cat owl-carousel">
 
         {% for cat in settings.categories %}
-        <div class="owl-item">
-            <div class="mn-cat-card {{ cat.class }}">
+        <div>
+            <div class="mn-cat-card">
                 {% if cat.discount %}
                     <p class="lbl"><span>{{ cat.discount }}</span></p>
                     <span class="bg">{{ cat.discount }}</span>
