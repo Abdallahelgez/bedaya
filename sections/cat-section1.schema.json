@@ -1,0 +1,126 @@
+{
+  "section_id": "uuid",
+  "template": "sections/cat-section1.jinja",
+  "icon": "fal fa-cabinet-filing",
+  "name": {
+    "ar": "التصنيفات",
+    "en": "Slider"
+  },
+  "settings": [
+    {
+      "id": "categories",
+      "type": "list",
+      "label": {
+        "ar": "التصنيفات",
+        "en": "Categories"
+      },
+      "max_items": 20,
+      "settings": [
+        {
+      "id": "discount",
+      "type": "text",
+      "label": {
+        "ar": "النسبة المئوية",
+        "en": "rate number"
+      }
+    },{
+      "id": "title1",
+      "type": "text",
+      "label": {
+        "ar": "النص الاول",
+        "en": "title 1"
+      }
+    },{
+      "id": "title2",
+      "type": "text",
+      "label": {
+        "ar": "النص الثانى",
+        "en": "title 2"
+      }
+    },{
+      "id": "items_number",
+      "type": "text",
+      "label": {
+        "ar": "عدد العناصر",
+        "en": "items number"
+      }
+    },{
+          "id": "image1",
+          "type": "image",
+          "label": {
+            "ar": "الصورة الاولى",
+            "en": "Image 1"
+          },
+          "info": {
+            "ar": "ارفع صورة بحجم 500 * 500",
+            "en": "This is an info text sample here"
+          }
+        },{
+          "id": "image2",
+          "type": "image",
+          "label": {
+            "ar": "الصورة الثانية",
+            "en": "Image 2"
+          },
+          "info": {
+            "ar": "ارفع صورة بحجم 500 * 500",
+            "en": "This is an info text sample here"
+          }
+        },{
+          "id": "image3",
+          "type": "image",
+          "label": {
+            "ar": "الصورة الثالثة",
+            "en": "Image 3"
+          },
+          "info": {
+            "ar": "ارفع صورة بحجم 500 * 500",
+            "en": "This is an info text sample here"
+          }
+        }
+      ]
+    },
+    {
+      "id": "title",
+      "type": "text",
+      "label": {
+        "ar": "العنوان",
+        "en": "text"
+      }
+    },
+    {
+      "id": "more_text",
+      "type": "text",
+      "label": {
+        "ar": "نص زر جميع التصنيفات",
+        "en": "More text"
+      }
+    },
+    {
+      "id": "categories",
+      "type": "list",
+      "label": {
+        "ar": "التصنيف",
+        "en": "Picture"
+      },
+      "settings": [
+        {
+          "id": "category",
+          "type": "category",
+          "label": {
+            "ar": "اختر التصنيف",
+            "en": "Select category"
+          }
+        }
+      ]
+    },
+    {
+      "id": "display_more",
+      "type": "checkbox",
+      "label": {
+        "ar": "عرض زر جميع التصنيفات",
+        "en": "Display button more products"
+      }
+    }
+  ]
+}

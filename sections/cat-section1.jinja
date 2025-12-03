@@ -1,0 +1,99 @@
+<div id="{{ sectionId }}" section-id="{{ sectionId }}"
+     data-lg-scroll-offset="130"
+     data-md-scroll-offset="130"
+     data-sm-scroll-offset="94"
+     class="mn-category p-tb-15">
+        <div class="mn-cat owl-carousel">
+
+        {% for cat in settings.categories %}
+        <div class="owl-item">
+            <div class="mn-cat-card {{ cat.class }}">
+                {% if cat.discount %}
+                    <p class="lbl"><span>{{ cat.discount }}</span></p>
+                    <span class="bg">{{ cat.discount }}</span>
+                {% endif %}
+                {% if cat.title1 %}
+                    <h4>{{ cat.title1 }}</h4>
+                {% endif %}
+                {% if cat.title2 %}
+                    <h3>{{ cat.title2 }}</h3>
+                {% endif %}
+                {% if cat.items_number %}
+                    <p>({{ cat.items_number }})</p>
+                {% endif %}
+                {% if cat.image1 or cat.image2 or cat.image3 %}
+                    <ul>
+
+                        {% if cat.image1 %}
+                        <li>
+                            <a href="shop-right-sidebar.html">
+                                <img src="{{ cat.image1 }}" alt="category-image">
+                            </a>
+                        </li>
+                        {% endif %}
+
+                        {% if cat.image2 %}
+                        <li>
+                            <a href="shop-right-sidebar.html">
+                                <img src="{{ cat.image2 }}" alt="category-image">
+                            </a>
+                        </li>
+                        {% endif %}
+
+                        {% if cat.image3 %}
+                        <li>
+                            <a href="shop-right-sidebar.html">
+                                <img src="{{ cat.image3 }}" alt="category-image">
+                            </a>
+                        </li>
+                        {% endif %}
+
+                    </ul>
+                {% endif %}
+
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+<script>
+
+    $(".mn-cat").owlCarousel({
+        margin: 24,
+        loop: true,
+        dots: false,
+        nav: false,
+        smartSpeed: 500,
+        autoplayTimeout: 3000,
+        items: 3,
+        autoHeight: true,
+        responsiveClass: true,
+        responsive: {
+            0: {
+                items: 1,
+            },
+            421: {
+                items: 2,
+            },
+            768: {
+                items: 3,
+            },
+            992: {
+                items: 4,
+            },
+            1200: {
+                items: 4,
+            },
+            1400: {
+                items: 4,
+            },
+            1600: {
+                items: 5,
+            }
+        },
+    });
+</script>
+
+
