@@ -6,7 +6,7 @@
         <div class="mn-cat owl-carousel">
 {% if settings.categories %}
         {% for cat in settings.categories %}
-        <div>
+        <div class="item">
             <div class="mn-cat-card">
                 {% if cat.discount %}
                     <p class="lbl"><span>{{ cat.discount }}</span></p>
@@ -19,7 +19,7 @@
                     <h3>{{ cat.title2 }}</h3>
                 {% endif %}
                 {% if cat.items_number %}
-                    <p>({{ cat.items_number }})</p>
+                    <p>{{ cat.items_number }}</p>
                 {% endif %}
                 {% if cat.image1 or cat.image2 or cat.image3 %}
                     <ul>
