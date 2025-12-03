@@ -3,8 +3,8 @@
   "template": "sections/cat-section1.jinja",
   "icon": "fal fa-cabinet-filing",
   "name": {
-    "ar": "التصنيفات",
-    "en": "Slider"
+    "ar": "التصنيفات مخصص",
+    "en": "custom categories"
   },
   "settings": [
     {
