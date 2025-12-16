@@ -131,7 +131,6 @@
     <link rel="stylesheet" type="text/css" href="{{ 'slide-menu-style.css?v=1.16' | asset_url }}" />
 
     <link rel="stylesheet" href="{{ ('main.css?v=' ~ ver) | asset_url }}" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" type="text/css" href="{{ 'custom.css?v=1.148' | asset_url }}" />
 <link rel="stylesheet" type="text/css" href="{{ 'style.css' | asset_url }}" />
     {% if session.lang == 'ar' %}
@@ -192,13 +191,13 @@
     <div class="header">
         {% block header %}{% endblock %}
     </div>
-    <div id="mn-overlay" >
+    {# <div id="mn-overlay" >
 			<div class="loader">
 				<img src="{{settings.loader_page|json_encode}}" alt="loader">
         <span>{{settings.loader_page|json_encode}}</span>
 				<span class="shape"></span>
 			</div>
-		</div>
+		</div> #}
     <div class="main flex-grow-1 app-content"
             {% if settings.colors_background_image %} style="background-repeat: repeat; background-image: url('{{ settings.colors_background_image }}');" {% endif %}>
         {% block main_content %}{% endblock %}

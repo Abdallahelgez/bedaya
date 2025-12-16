@@ -1,0 +1,217 @@
+<section id="{{ sectionId }}" section-id="{{ sectionId }}"
+         data-lg-scroll-offset="130"
+         data-md-scroll-offset="130"
+         data-sm-scroll-offset="94">
+    <div class="container section-slider-padding-space slider-container">
+        <h2 class="section-title theme-text-primary">{{ settings.title }}</h2>
+
+        <div class="blogs-slider-wrapper" style="position: relative">
+
+
+            <div class="blogs-slider s-slider">
+
+                {% for blog in safeget(settings, "blogs", []) %}
+
+                
+                <div class="card">
+                    <img src="{{ image_url(blog.image, w=800, q=100, f='auto') }}" 
+                        alt="Fashion Items" 
+                        class="card-image">
+                    <div class="card-content">
+                        <div class="card-meta">
+                            <span class="date">{{blog.date}}</span>
+                            <span class="separator">–</span>
+                            <span class="category">{{ blog.category }}</span>
+                        </div>
+                        <h2 class="card-title">{{ blog.title }}</h2>
+                        <a href="{{ blog.url }}" class="read-more">{{ blog.text_button }}</a>
+                    </div>
+                </div>
+                {% endfor %}
+
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function(){
+        var arrowNextClass, arrowPrevClass;
+        if (window.appDirection === 'ltr') {
+            arrowNextClass = 'icon-keyboard_arrow_right';
+            arrowPrevClass = 'icon-keyboard_arrow_left';
+        } else {
+            arrowNextClass = 'icon-keyboard_arrow_left';
+            arrowPrevClass = 'icon-keyboard_arrow_right';
+        }
+
+        var screenWidth = window.screen.width;
+
+        var editingMode = {% if store.editing_mode %}true{% else %}false{% endif %};
+
+        if(screenWidth >= 768 || editingMode){
+            $('[section-id="{{ sectionId }}"] .blogs-slider').slick({
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                infinite: true,
+                autoplay: true,
+                arrows: true,
+                dots: {% if (settings.hide_dots or (safeget(settings, "blogs", []) | length <= 3)) %}false{% else %}true{% endif %},
+                rtl: !(window.appDirection === 'ltr'),
+                nextArrow:'<button class="slick-next slick-arrow" aria-label="Next" type="button" style=""><span class="'+arrowNextClass+'"></span></button>',
+                prevArrow:'<button class="slick-prev slick-arrow" aria-label="Previous" type="button" style=""><span class="'+arrowPrevClass+'"></span></button>',
+                responsive: [
+                    {
+                        breakpoint: 992,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 1
+                        }
+                    },
+                    {
+                        breakpoint: 768,
+                        settings: "unslick"
+                    }
+                ]
+            });
+        }
+    });
+</script>
+
+
+
+
+<style>
+    .blogs-slider-wrapper {
+        position: relative;
+    }
+    .blogs-slider {
+    display: block !important;
+}
+
+.blogs-slider .slick-track {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+}
+
+.blogs-slider .slick-slide {
+    height: auto;
+}
+    .card {
+            background: white;
+            border-radius: 24px;
+            max-width: 100%;
+            width: 100%;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 420px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .card-content {
+            padding: 35px 40px 40px;
+        }
+
+        .card-meta {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #94a3b8;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .date {
+            color: #64748b;
+        }
+
+        .separator {
+            color: #cbd5e1;
+        }
+
+        .category {
+            color: #8b5cf6;
+            background: #f3f0ff;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .card-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 28px;
+            line-height: 1.4;
+            letter-spacing: -0.5px;
+        }
+
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #6366f1;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 12px 0;
+        }
+
+        .read-more:hover {
+            gap: 12px;
+            color: #4f46e5;
+        }
+
+        .read-more::after {
+            content: '←';
+            font-size: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .read-more:hover::after {
+            transform: translateX(-4px);
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                border-radius: 16px;
+            }
+
+            .card-image {
+                height: 280px;
+            }
+
+            .card-content {
+                padding: 24px 24px 28px;
+            }
+
+            .card-title {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+
+            .card-meta {
+                font-size: 13px;
+                margin-bottom: 16px;
+            }
+        }
+    </style>

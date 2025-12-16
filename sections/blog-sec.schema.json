@@ -1,0 +1,90 @@
+{
+  "section_id": "uuid",
+  "template": "sections/blog-sec.jinja",
+  "icon": "fal fa-blog",
+  "name": {
+    "ar": "قسم المدونة",
+    "en": "Blog Section"
+  },
+  "settings": [
+    {
+      "id": "title",
+      "type": "text",
+      "label": {
+        "ar": "العنوان",
+        "en": "Title"
+      }
+    },
+    {
+      "id": "hide_dots",
+      "type": "checkbox",
+      "label": {
+        "ar": "إخفاء النقاط",
+        "en": "Hide dots"
+      }
+    },
+    {
+      "id": "blogs",
+      "type": "list",
+      "label": {
+        "ar": "المدونة",
+        "en": "Blog"
+      },
+      "max_items": 12,
+      "info": {
+        "ar": "",
+        "en": ""
+      },
+      "settings": [
+        {
+          "id": "image",
+          "type": "image",
+          "label": {
+            "ar": "الصورة",
+            "en": "Image"
+          }
+        },
+        {
+          "id": "date",
+          "type": "text",
+          "label": {
+            "ar": "التاريخ",
+            "en": "Date"
+          }
+        },
+        {
+          "id": "category",
+          "type": "text",
+          "label": {
+            "ar": "الفئة",
+            "en": "Category"
+          }
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "label": {
+            "ar": "العنوان",
+            "en": "Title"
+          }
+        },
+        {
+          "id": "url",
+          "type": "url",
+          "label": {
+            "ar": "الرابط",
+            "en": "Link"
+          }
+        },
+        {
+          "id": "text_button",
+          "type": "text",
+          "label": {
+            "ar": "نص الزر",
+            "en": "Button Text"
+          }
+        }
+      ]
+    }
+  ]
+}
