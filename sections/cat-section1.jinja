@@ -3,97 +3,147 @@
      data-md-scroll-offset="130"
      data-sm-scroll-offset="94"
      class="mn-category p-tb-15">
-        <div class="mn-cat owl-carousel">
-{% if settings.categories %}
-        {% for cat in settings.categories %}
-        <div class="item">
-            <div class="mn-cat-card">
-                {% if cat.discount %}
-                    <p class="lbl"><span>{{ cat.discount }}</span></p>
-                    <span class="bg">{{ cat.discount }}</span>
-                {% endif %}
-                {% if cat.title1 %}
-                    <h4>{{ cat.title1 }}</h4>
-                {% endif %}
-                {% if cat.title2 %}
-                    <h3>{{ cat.title2 }}</h3>
-                {% endif %}
-                {% if cat.items_number %}
-                    <p>{{ cat.items_number }}</p>
-                {% endif %}
-                {% if cat.image1 or cat.image2 or cat.image3 %}
-                    <ul>
+    <div class="category-slider-wrapper" style="position: relative;">
+        <div class="mn-cat category-slider s-slider">
+            {% if settings.categories %}
+                {% for cat in settings.categories %}
+                    <div class="item">
+                        <div class="mn-cat-card">
+                            {% if cat.discount %}
+                                <p class="lbl"><span>{{ cat.discount }}</span></p>
+                                <span class="bg">{{ cat.discount }}</span>
+                            {% endif %}
+                            {% if cat.title1 %}
+                                <h4>{{ cat.title1 }}</h4>
+                            {% endif %}
+                            {% if cat.title2 %}
+                                <h3>{{ cat.title2 }}</h3>
+                            {% endif %}
+                            {% if cat.items_number %}
+                                <p>{{ cat.items_number }}</p>
+                            {% endif %}
+                            {% if cat.image1 or cat.image2 or cat.image3 %}
+                                <ul>
+                                    {% if cat.image1 %}
+                                    <li>
+                                        <a href="shop-right-sidebar.html">
+                                            <img src="{{ cat.image1 }}" alt="category-image" loading="lazy">
+                                        </a>
+                                    </li>
+                                    {% endif %}
 
-                        {% if cat.image1 %}
-                        <li>
-                            <a href="shop-right-sidebar.html">
-                                <img src="{{ cat.image1 }}" alt="category-image">
-                            </a>
-                        </li>
-                        {% endif %}
+                                    {% if cat.image2 %}
+                                    <li>
+                                        <a href="shop-right-sidebar.html">
+                                            <img src="{{ cat.image2 }}" alt="category-image" loading="lazy">
+                                        </a>
+                                    </li>
+                                    {% endif %}
 
-                        {% if cat.image2 %}
-                        <li>
-                            <a href="shop-right-sidebar.html">
-                                <img src="{{ cat.image2 }}" alt="category-image">
-                            </a>
-                        </li>
-                        {% endif %}
-
-                        {% if cat.image3 %}
-                        <li>
-                            <a href="shop-right-sidebar.html">
-                                <img src="{{ cat.image3 }}" alt="category-image">
-                            </a>
-                        </li>
-                        {% endif %}
-
-                    </ul>
-                {% endif %}
-
-            </div>
+                                    {% if cat.image3 %}
+                                    <li>
+                                        <a href="shop-right-sidebar.html">
+                                            <img src="{{ cat.image3 }}" alt="category-image" loading="lazy">
+                                        </a>
+                                    </li>
+                                    {% endif %}
+                                </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
         </div>
-        {% endfor %}
-{% endif %}
     </div>
 </div>
 
-<script>
+<style>
+    .category-slider-wrapper {
+        position: relative;
+    }
+    
+    .category-slider {
+        display: block !important;
+    }
 
-    $(".mn-cat").owlCarousel({
-        margin: 24,
-        loop: true,
-        dots: false,
-        nav: false,
-        smartSpeed: 500,
-        autoplayTimeout: 3000,
-        items: 3,
-        autoHeight: true,
-        responsiveClass: true,
-        responsive: {
-            0: {
-                items: 1,
-            },
-            421: {
-                items: 2,
-            },
-            768: {
-                items: 3,
-            },
-            992: {
-                items: 4,
-            },
-            1200: {
-                items: 4,
-            },
-            1400: {
-                items: 4,
-            },
-            1600: {
-                items: 5,
-            }
-        },
-    });
+    .category-slider .slick-track {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+    }
+
+    .category-slider .slick-slide {
+        height: auto;
+    }
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+    var arrowNextClass, arrowPrevClass;
+    if (window.appDirection === 'ltr') {
+        arrowNextClass = 'icon-keyboard_arrow_right';
+        arrowPrevClass = 'icon-keyboard_arrow_left';
+    } else {
+        arrowNextClass = 'icon-keyboard_arrow_left';
+        arrowPrevClass = 'icon-keyboard_arrow_right';
+    }
+
+    var screenWidth = window.screen.width;
+    var editingMode = {% if store.editing_mode %}true{% else %}false{% endif %};
+    var slidesToShow = {{ settings.slides_to_show|default(4) }};
+    var slidesToScroll = {{ settings.slides_to_scroll|default(1) }};
+    var autoplayEnabled = {% if settings.autoplay %}true{% else %}false{% endif %};
+    var autoplaySpeed = {{ settings.autoplay_speed|default(3000) }};
+    var infiniteScroll = {% if settings.infinite %}true{% else %}false{% endif %};
+    var showArrows = {% if settings.hide_arrows %}false{% else %}true{% endif %};
+    var showDots = {% if settings.hide_dots %}false{% else %}true{% endif %};
+    var categoriesCount = {{ safeget(settings, "categories", [])|length if safeget(settings, "categories", []) else 0 }};
+
+    if(screenWidth >= 768 || editingMode){
+        $('[section-id="{{ sectionId }}"] .category-slider').slick({
+            slidesToShow: slidesToShow,
+            slidesToScroll: slidesToScroll,
+            infinite: infiniteScroll,
+            autoplay: autoplayEnabled,
+            autoplaySpeed: autoplaySpeed,
+            speed: {{ settings.speed|default(500) }},
+            arrows: showArrows && categoriesCount > slidesToShow,
+            dots: showDots && categoriesCount > slidesToShow,
+            rtl: !(window.appDirection === 'ltr'),
+            nextArrow:'<button class="slick-next slick-arrow" aria-label="Next" type="button" style=""><span class="'+arrowNextClass+'"></span></button>',
+            prevArrow:'<button class="slick-prev slick-arrow" aria-label="Previous" type="button" style=""><span class="'+arrowPrevClass+'"></span></button>',
+            responsive: [
+                {
+                    breakpoint: 1200,
+                    settings: {
+                        slidesToShow: {{ settings.slides_to_show_tablet|default(3) }},
+                        slidesToScroll: {{ settings.slides_to_scroll_tablet|default(1) }}
+                    }
+                },
+                {
+                    breakpoint: 992,
+                    settings: {
+                        slidesToShow: {{ settings.slides_to_show_tablet|default(3) }},
+                        slidesToScroll: {{ settings.slides_to_scroll_tablet|default(1) }}
+                    }
+                },
+                {
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: {{ settings.slides_to_show_mobile|default(2) }},
+                        slidesToScroll: {{ settings.slides_to_scroll_mobile|default(1) }}
+                    }
+                },
+                {
+                    breakpoint: 576,
+                    settings: {
+                        slidesToShow: {{ settings.slides_to_show_mobile|default(2) }},
+                        slidesToScroll: {{ settings.slides_to_scroll_mobile|default(1) }}
+                    }
+                }
+            ]
+        });
+    }
+});
 </script>
 
 

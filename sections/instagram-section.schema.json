@@ -1,0 +1,90 @@
+{
+  "section_id": "uuid",
+  "template": "sections/instagram-section.jinja",
+  "icon": "fal fa-instagram",
+  "name": {
+    "ar": "قسم الإنستجرام",
+    "en": "Instagram Section"
+  },
+  "settings": [
+    {
+      "id": "instagram_items",
+      "type": "list",
+      "label": {
+        "ar": "صور الإنستجرام",
+        "en": "Instagram Images"
+      },
+      "max_items": 20,
+      "settings": [
+        {
+          "id": "image",
+          "type": "image",
+          "label": {
+            "ar": "الصورة",
+            "en": "Image"
+          },
+          "info": {
+            "ar": "ارفع صورة بحجم 300 * 300",
+            "en": "Upload image size 300 * 300"
+          }
+        },
+        {
+          "id": "url",
+          "type": "url",
+          "label": {
+            "ar": "الرابط",
+            "en": "Link"
+          }
+        },
+        {
+          "id": "alt_text",
+          "type": "text",
+          "label": {
+            "ar": "النص البديل للصورة",
+            "en": "Image Alt Text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "animation_speed",
+      "type": "number",
+      "label": {
+        "ar": "سرعة الحركة (بالثواني)",
+        "en": "Animation Speed (seconds)"
+      },
+      "default": 14,
+      "info": {
+        "ar": "كلما قل الرقم كلما زادت السرعة",
+        "en": "Lower number means faster animation"
+      }
+    },
+    {
+      "id": "background_color",
+      "type": "color",
+      "label": {
+        "ar": "لون الخلفية",
+        "en": "Background Color"
+      }
+    },
+    {
+      "id": "padding_top",
+      "type": "number",
+      "label": {
+        "ar": "المسافة العلوية (بالبكسل)",
+        "en": "Top Padding (pixels)"
+      },
+      "default": 15
+    },
+    {
+      "id": "padding_bottom",
+      "type": "number",
+      "label": {
+        "ar": "المسافة السفلية (بالبكسل)",
+        "en": "Bottom Padding (pixels)"
+      },
+      "default": 15
+    }
+  ]
+}
+

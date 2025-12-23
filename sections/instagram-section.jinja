@@ -1,0 +1,165 @@
+<section id="{{ sectionId }}" section-id="{{ sectionId }}" class="mn-instagram module p-tb-15">
+	<h2 class="d-none">insta</h2>
+	<div class="mn-insta-wrapper">
+		<div class="mn-insta-outer">
+			<div class="infiniteslide_wrap" style="overflow: hidden;">
+				<div class="insta-auto" style="display: flex; flex-flow: row; align-items: center;">
+					{% set instagram_items = safeget(settings, "instagram_items", []) %}
+					{% if instagram_items %}
+						{# Original items #}
+						{% for item in instagram_items %}
+							<div class="mn-insta-item" style="flex: 0 0 auto; display: block;">
+								<div class="mn-insta-inner">
+									<a href="{% if item.url %}{{ item.url }}{% else %}#{% endif %}" target="_blank">
+										<img src="{% if item.image %}{{ image_url(item.image, w=300, q=100, f='auto') }}{% else %}assets/img/instagram/{{ loop.index }}.jpg{% endif %}" alt="{% if item.alt_text %}{{ item.alt_text }}{% else %}insta{% endif %}" loading="lazy" decoding="async" fetchpriority="low">
+									</a>
+								</div>
+							</div>
+						{% endfor %}
+						{# Clone for seamless infinite scroll - same images repeated #}
+						{% for item in instagram_items %}
+							<div class="mn-insta-item infiniteslide_clone" style="flex: 0 0 auto; display: block;">
+								<div class="mn-insta-inner">
+									<a href="{% if item.url %}{{ item.url }}{% else %}#{% endif %}" target="_blank">
+										<img src="{% if item.image %}{{ image_url(item.image, w=300, q=100, f='auto') }}{% else %}assets/img/instagram/{{ loop.index }}.jpg{% endif %}" alt="{% if item.alt_text %}{{ item.alt_text }}{% else %}insta{% endif %}" loading="lazy" decoding="async" fetchpriority="low">
+									</a>
+								</div>
+							</div>
+						{% endfor %}
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	{% if settings.background_color %}
+	[section-id="{{ sectionId }}"] {
+		background-color: {{ settings.background_color }};
+	}
+	{% endif %}
+	
+	{% if settings.padding_top %}
+	[section-id="{{ sectionId }}"] {
+		padding-top: {{ settings.padding_top }}px;
+	}
+	{% endif %}
+	
+	{% if settings.padding_bottom %}
+	[section-id="{{ sectionId }}"] {
+		padding-bottom: {{ settings.padding_bottom }}px;
+	}
+	{% endif %}
+	.mn-insta-item {
+  width: 100px;
+  padding: 0 12px;
+}
+
+.mn-insta-inner a {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+  display: block;
+  -webkit-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+  overflow: hidden;
+  border-radius: 15px;
+}
+.mn-insta-inner a:after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  content: "";
+  background: #3a4ee5;
+  z-index: 2;
+  opacity: 0;
+  -webkit-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+}
+.mn-insta-inner a:before {
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  font-family: 'icomoon' !important;
+  content: "\f16d"; 
+  font-size: 35px;
+  line-height: 1;
+  color: #fff;
+  z-index: 3;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.mn-insta-inner a:hover:after {
+  opacity: 0.8;
+}
+.mn-insta-inner a:hover:before {
+  opacity: 1;
+  visibility: visible;
+}
+.mn-insta-inner img {
+  max-width: 100%;
+}
+
+
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+	var instagramSection = document.querySelector('[section-id="{{ sectionId }}"]');
+	if (instagramSection) {
+		var instaAuto = instagramSection.querySelector('.insta-auto');
+		if (instaAuto) {
+			// Generate unique animation name
+			var animationName = 'infiniteslide{{ sectionId }}';
+			var animationSpeed = {{ settings.animation_speed|default(14) }};
+			
+			// Check if keyframes already exist
+			var existingStyle = document.getElementById('instagram-animation-{{ sectionId }}');
+			if (!existingStyle) {
+				// Determine direction based on language
+				// RTL (Arabic): scroll from right to left (negative translateX)
+				// LTR (English): scroll from left to right (positive translateX)
+				// We use -50% because we duplicate items once, so when we reach -50%, 
+				// the clone starts at the same position, creating seamless infinite scroll
+				var isRTL = window.appDirection === 'rtl';
+				var translateValue = isRTL ? '-50%' : '50%';
+				
+				var style = document.createElement('style');
+				style.id = 'instagram-animation-{{ sectionId }}';
+				style.textContent = `
+					@keyframes ${animationName} {
+						0% {
+							transform: translateX(0);
+						}
+						100% {
+							transform: translateX(${translateValue});
+						}
+					}
+				`;
+				document.head.appendChild(style);
+			}
+			
+			// Set animation - ensure it never stops with seamless infinite scroll
+			instaAuto.style.animation = animationSpeed + 's linear 0s infinite normal none running ' + animationName;
+			instaAuto.setAttribute('data-style', animationName);
+			instaAuto.style.willChange = 'transform';
+		}
+	}
+});
+</script>
+

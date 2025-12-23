@@ -17,34 +17,38 @@
       "max_items": 20,
       "settings": [
         {
-      "id": "discount",
-      "type": "text",
-      "label": {
-        "ar": "النسبة المئوية",
-        "en": "rate number"
-      }
-    },{
-      "id": "title1",
-      "type": "text",
-      "label": {
-        "ar": "النص الاول",
-        "en": "title 1"
-      }
-    },{
-      "id": "title2",
-      "type": "text",
-      "label": {
-        "ar": "النص الثانى",
-        "en": "title 2"
-      }
-    },{
-      "id": "items_number",
-      "type": "text",
-      "label": {
-        "ar": "عدد العناصر",
-        "en": "items number"
-      }
-    },{
+          "id": "discount",
+          "type": "text",
+          "label": {
+            "ar": "النسبة المئوية",
+            "en": "rate number"
+          }
+        },
+        {
+          "id": "title1",
+          "type": "text",
+          "label": {
+            "ar": "النص الاول",
+            "en": "title 1"
+          }
+        },
+        {
+          "id": "title2",
+          "type": "text",
+          "label": {
+            "ar": "النص الثانى",
+            "en": "title 2"
+          }
+        },
+        {
+          "id": "items_number",
+          "type": "text",
+          "label": {
+            "ar": "عدد العناصر",
+            "en": "items number"
+          }
+        },
+        {
           "id": "image1",
           "type": "image",
           "label": {
@@ -55,7 +59,8 @@
             "ar": "ارفع صورة بحجم 500 * 500",
             "en": "This is an info text sample here"
           }
-        },{
+        },
+        {
           "id": "image2",
           "type": "image",
           "label": {
@@ -66,7 +71,8 @@
             "ar": "ارفع صورة بحجم 500 * 500",
             "en": "This is an info text sample here"
           }
-        },{
+        },
+        {
           "id": "image3",
           "type": "image",
           "label": {
@@ -79,6 +85,130 @@
           }
         }
       ]
+    },
+    {
+      "id": "slides_to_show",
+      "type": "number",
+      "label": {
+        "ar": "عدد الشرائح المعروضة (سطح المكتب)",
+        "en": "Slides to Show (Desktop)"
+      },
+      "default": 4,
+      "info": {
+        "ar": "عدد التصنيفات المعروضة في نفس الوقت على الشاشات الكبيرة",
+        "en": "Number of categories shown at once on large screens"
+      }
+    },
+    {
+      "id": "slides_to_scroll",
+      "type": "number",
+      "label": {
+        "ar": "عدد الشرائح للتمرير",
+        "en": "Slides to Scroll"
+      },
+      "default": 1,
+      "info": {
+        "ar": "عدد التصنيفات التي تنتقل عند التمرير",
+        "en": "Number of categories to scroll at once"
+      }
+    },
+    {
+      "id": "slides_to_show_tablet",
+      "type": "number",
+      "label": {
+        "ar": "عدد الشرائح المعروضة (التابلت)",
+        "en": "Slides to Show (Tablet)"
+      },
+      "default": 3
+    },
+    {
+      "id": "slides_to_scroll_tablet",
+      "type": "number",
+      "label": {
+        "ar": "عدد الشرائح للتمرير (التابلت)",
+        "en": "Slides to Scroll (Tablet)"
+      },
+      "default": 1
+    },
+    {
+      "id": "slides_to_show_mobile",
+      "type": "number",
+      "label": {
+        "ar": "عدد الشرائح المعروضة (الموبايل)",
+        "en": "Slides to Show (Mobile)"
+      },
+      "default": 2
+    },
+    {
+      "id": "slides_to_scroll_mobile",
+      "type": "number",
+      "label": {
+        "ar": "عدد الشرائح للتمرير (الموبايل)",
+        "en": "Slides to Scroll (Mobile)"
+      },
+      "default": 1
+    },
+    {
+      "id": "autoplay",
+      "type": "checkbox",
+      "label": {
+        "ar": "تشغيل تلقائي",
+        "en": "Autoplay"
+      },
+      "default": false
+    },
+    {
+      "id": "autoplay_speed",
+      "type": "number",
+      "label": {
+        "ar": "سرعة التشغيل التلقائي (بالميلي ثانية)",
+        "en": "Autoplay Speed (milliseconds)"
+      },
+      "default": 3000,
+      "info": {
+        "ar": "الوقت بين كل شريحة عند التشغيل التلقائي",
+        "en": "Time between slides in autoplay mode"
+      }
+    },
+    {
+      "id": "infinite",
+      "type": "checkbox",
+      "label": {
+        "ar": "تمرير لا نهائي",
+        "en": "Infinite Scroll"
+      },
+      "default": true
+    },
+    {
+      "id": "speed",
+      "type": "number",
+      "label": {
+        "ar": "سرعة الانتقال (بالميلي ثانية)",
+        "en": "Transition Speed (milliseconds)"
+      },
+      "default": 500,
+      "info": {
+        "ar": "سرعة الانتقال بين الشرائح",
+        "en": "Speed of transition between slides"
+      }
+    },
+    {
+      "id": "hide_arrows",
+      "type": "checkbox",
+      "label": {
+        "ar": "إخفاء الأسهم",
+        "en": "Hide Arrows"
+      },
+      "default": false
+    },
+    {
+      "id": "hide_dots",
+      "type": "checkbox",
+      "label": {
+        "ar": "إخفاء النقاط",
+        "en": "Hide Dots"
+      },
+      "default": true
     }
   ]
 }
