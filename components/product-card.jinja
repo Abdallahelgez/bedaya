@@ -12,84 +12,119 @@
       </span>
     {% endif %}
     
-    <a href="/products/{{ product.slug }}" class="d-flex flex-column justify-content-start">
+    <a href="/products/{{ product.slug }}" class="img-parent">
 
-        <div class="box-1-1">
-            <div class="content">
-                <div class="d-flex justify-content-center" style="width: 100%; height: 100%;">
-                   {% if product.badge %}
-                        {% set positionProductCard = true %}
-                        {% include 'vitrin:products/badge.jinja' %}
-                  {% endif %}
-                    <img id="product-card-img-{{ product.id }}"
-                            {% if product.images or product.videos %}
-                                    src="{{ product.main_image.image.small if product.main_image else '' }}"
-                             {% else %}
-                                 src="{{ image_url(('product-img.svg' | asset_url), w=235, q=100, f='auto') }}"
-                            {% endif %}
-                         alt="{{ product.name }}">
-                    <span class="product-card-bundle-offer" data-bundle-offer-product-id="{{ product.id }}"></span>
-                </div>
-            </div>
-        </div>
+        <div class="img-div">
 
-        <div class="product-title" style="margin-top: 15px"><span>{{ product.name | safe }}</span></div>
-        {% if store.settings.products.reviews_enabled %}
-            <div class="product-card-rating-wrapper" style="height: 18px">
-                {% if product.rating %}
-                    {% set rating=product.rating.average %}{% include 'components/rating-stars.jinja' %}
-                    {% if product.rating.total_count > 0 %}<span class="product-card-rating-count">({{ product.rating.total_count }})</span>{% endif %}
+            <div class="d-flex justify-content-center position-relative" style="width: 100%; height: 100%;">
+                {% if product.badge %}
+                    {% set positionProductCard = true %}
+                    {% include 'vitrin:products/badge.jinja' %}
+                {% endif %}
+                <img loading="lazy" id="product-card-img-{{ product.id }}" class="product-card-img" 
+                {% if product.images or product.videos %}
+                    src="{{ product.main_image.image.large if product.main_image else '' }}"
+                {% else %}
+                    src="{{ image_url(('product-img.svg' | asset_url), w=235, q=100, f='auto') }}"
+                {% endif %}
+                alt="{{ product.name }}" loading="lazy">
+                <span class="product-card-bundle-offer" data-bundle-offer-product-id="{{ product.id }}"></span>
+                {% if product.formatted_sale_price is not none %}
+                    <span class="sale-count over-img" style="color:#175CD3; background-color: #D1E9FF; border-color: #D1E9FF;">
+                        {{ _("Discount") }}&nbsp;{{ product.discount_percentage }}%
+                    </span>
                 {% endif %}
             </div>
-        {% endif %}
-        <div class="product-crd-spec">
-            {% if product.formatted_sale_price is not none %}
-                <div class="section-product-price">
-                    <div class="product-price theme-title-primary"><span>{{ product.formatted_sale_price }}</span></div>
-                    <div style="color: #494949"><span class="product-prev-price">{{ product.formatted_price }}</span>
-                        <span style="color:#f25f5f;">
-                        &nbsp;  &nbsp;{{ _("Discount") }}&nbsp;{{ product.discount_percentage }}%
-                        </span>
+
+        </div>
+    </a>
+    <div class="parent custom">
+        <div>
+
+            <div class="product-title" style="margin-top: 15px">
+                <a href="/products/{{ product.slug }}" class="d-flex flex-column justify-content-start">
+                    <span class="title">{{ product.name | safe }}</span>
+                </a>
+            </div>
+
+            <div class="product-details-short-description" style="height: 25px">
+                {% if product.short_description %}
+                    {{ product.short_description | safe }}
+                {% else %}
+                    {{ _("No description available") }}
+                {% endif %}
+            </div>
+
+            <div class="product-crd-spec" style="">
+
+                {% if product.formatted_sale_price is not none %}
+                    <div class=" price-rate">
+                        <div class="section-product-price">
+                            <div class="product-price">
+                                <span class="product-after-price">{{ product.formatted_sale_price }}</span>
+                            </div>
+                            <div class="price-before">
+                                <span class="product-prev-price">{{ product.formatted_price }}</span>
+                            </div>
+                        </div>
+                        {% if store.settings.products.reviews_enabled %}
+                            <div class="custom-product-card-rating-wrapper">
+                                {% if product.rating %}
+                                    <span class="icon-star1"></span>
+                                    <span class="product-card-rating-average">{{ product.rating.average }}</span>
+                                {% endif %}
+                            </div>
+                        {% endif %}
                     </div>
-                </div>
-            {% else %}
-                <div class="product-price section-product-price theme-title-primary" ><span>{{ product.formatted_price }}</span></div>
-            {% endif %}
-
-            {% if product.is_infinite or product.quantity > 0 %}
-
-                {% if (product.has_options or product.has_fields) %}
-                    <small style="font-size: 1.1rem; white-space: break-spaces">{{ _("Available in several options") }}</small>
+                {% else %}
+                    <div class=" price-rate ">
+                        <div class="product-price section-product-price theme-title-primary">
+                            <span class="price">{{ product.formatted_price }}</span>
+                        </div>
+                        {% if store.settings.products.reviews_enabled %}
+                            {% if product.rating %}
+                                <div class="custom-product-card-rating-wrapper">
+                                    <span class="icon-star1"></span>
+                                    <span class="product-card-rating-average">{{ product.rating.average }}</span>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    </div>
                 {% endif %}
 
-                {% if not product.is_taxable %}
-                    <small style="font-size: 1.1rem; white-space: break-spaces">{{ _("Tax free") }}</small>
+
+                {% if product.is_infinite or product.quantity > 0 %}
+
+                    {% if not product.is_taxable %}
+                        <small class="options-2 option" style="font-size: 1.1rem">{{ _("Tax free") }}</small>
+                    {% endif %}
+
                 {% endif %}
 
-            {% endif %}
-
-            {% if product.is_infinite == false and product.quantity <= 0 %}
-                <small style="font-size: 1.1rem; white-space: break-spaces">{{ _("This product is out of stock") }}</small>
-            {% endif %}
-
+            </div>
         </div>
-
-        <div style="text-align: center">
+        <div class="product-card-btn down-btns" style="text-align: center">
             {% if product.is_infinite == false and product.quantity <= 0 %}
-                <a class="btn btn-primary btn-product-card-out-of-stock">
-                    <img src="{{ 'u_bell.svg' | asset_url }}" alt="" width="18" height="18" class="d-inline">
+                <a class="btn btn-primary btn-product-card btn-product-card-out-of-stock" href="/products/{{ product.slug }}" disabled>
+                    <img loading="lazy" src="{{ 'u_bell.svg' | asset_url }}" alt="" width="18" height="18" class="d-inline">
                     <span>{{ _("Notify me when available") }}</span>
                 </a>
-            {% elif ( product.has_options or product.has_fields or product.product_class == 'dynamic_bundle' ) %}
-                <a class="btn btn-primary btn-product-card-select-variant" href="/products/{{ product.slug }}">{{ _("add to cart") }}</a>
+            {% elif ( product.has_options or product.has_fields ) %}
+                <a class="btn btn-primary btn-product-card btn-product-card-select-variant" href="/products/{{ product.slug }}">
+                    <span></span>
+                </a>
             {% else %}
-            <a class="btn btn-primary product-card-add-to-cart" onclick="event.preventDefault(); event.stopPropagation(); productCartAddToCart(this,'{{ product.id }}')">
-                <img style="display: inline" class="add-to-cart-progress d-none" src="{{ 'spinner.gif' | asset_url }}" width="20" height="20"/>
-                {{ _("add to cart") }}
-            </a>
+                <a href="javascript:void(0)" class="btn btn-primary btn-product-card product-card-add-to-cart" onclick="event.preventDefault(); event.stopPropagation(); productCartAddToCart(this,'{{ product.id }}')">
+                    <span><img loading="lazy" style="display: inline" class="add-to-cart-progress d-none" src="{{ 'spinner.gif' | asset_url }}" width="20" height="20"/>
+                        <i class="bi bi-bag"></i>
+                    </span>
+                </a>
+                <a href="/products/{{ product.slug }}" class=" d-none btn btn-primary btn-product-card show-details ">
+                    <i class="bi bi-eye"></i>
+                    {{ _("Product details") }}
+                </a>
             {% endif %}
         </div>
-
-    </a>
+    </div>
 </div>
 {% endif %}
