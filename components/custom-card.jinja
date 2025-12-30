@@ -1,0 +1,70 @@
+{% if product %}
+<div class="mn-product-card">
+<pre class="d-none">{{product | tojson}}</pre>
+    <div class="mn-product-img">
+        
+        <div class="mn-img">
+            <a href="/products/{{ product.slug }}" class="image">
+                <img id="product-card-img-{{ product.id }}" class="main-img" src="{{ product.main_image.image.large if product.main_image else (image_url(('product-img.svg' | asset_url), w=235, q=100, f='auto')) }}" alt="{{ product.name }}">
+                {% if product.images and product.images|length > 1 %}
+                <img class="hover-img" src="{{ product.images[1].image.large if product.images[1] else product.main_image.image.large }}" alt="{{ product.name }}">
+                {% endif %}
+            </a>
+            <div class="mn-pro-loader"></div>
+            <div class="mn-options">
+                <ul>
+                {% if (product.is_infinite == true or product.quantity > 0) and not( product.has_options or product.has_fields ) %}
+                    <li>
+                        <a href="javascript:void(0)" title="Add To Cart" class="mn-add-cart btn-product-card product-card-add-to-cart" onclick="event.preventDefault(); event.stopPropagation(); productCartAddToCart(this,'{{ product.id }}')">
+                            <img loading="lazy" class="add-to-cart-progress d-none" src="{{ 'spinner.gif' | asset_url }}" width="16" height="16" alt="Loading"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
+                                  <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
+                            </svg>
+                        </a>    
+                    </li>
+                
+                {% elif ( product.has_options or product.has_fields ) %}
+                    <li>
+                        <a class="mn-add-cart" href="/products/{{ product.slug }}">
+                            <i class="bi bi-eye"></i>
+                        </a>
+                    </li>
+                    
+                {% endif %}
+                    
+                    {% if store.settings.products.wishlist_enabled == true %}
+                    <li>
+                        {% if store.settings.products.wishlist_enabled == true %}
+                            <span class="add-to-wishlist" data-wishlist-id="{{ product.id }}">
+                                <span zid-visible-customer="true">
+                                    <button zid-visible-wishlist="{{ product.id }}" class="icon-heart-mask filled" onclick="addToWishlist(this, '{{ product.id }}')"></button>
+                                    <button zid-hidden-wishlist="{{ product.id }}" class="icon-heart-mask" onclick="addToWishlist(this, '{{ product.id }}')"></button>
+                                </span>
+                                <a zid-visible-guest="true" class="icon-heart-mask" href="/auth/login?redirect_to={{ session.url.path }}" onclick="event.preventDefault(); handleLoginAction('', false); return false;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+  <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+</svg></a>
+                                <img class="loader d-none" src="{{ 'spinner.gif' | asset_url }}" width="20" height="20"/>
+                            </span>
+                        {% endif %}
+                    </li>
+            {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="mn-product-detail">
+        <div class="cat">
+            <span>{{product.categories[0].name}}</span>
+        </div>
+        <h5><a href="/products/{{ product.slug }}">{{ product.name | safe }}</a></h5>
+        <div class="mn-price">
+            {% if product.formatted_sale_price is not none %}
+                <div class="mn-price-new">{{ product.formatted_sale_price }}</div>
+                <div class="mn-price-old">{{ product.formatted_price }}</div>
+            {% else %}
+                <div class="mn-price-new">{{ product.formatted_price }}</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endif %}

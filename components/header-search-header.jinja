@@ -1,92 +1,4 @@
-<div class="search-header header-theme-bg-primary">
-    <div class="container ">
-        <div class="d-flex align-items-center search-header-bar">
-            <div class="d-flex align-items-center bd-highlight header-logo">
 
-                {% if template != 'home' %}
-                    <button onclick="goBack()" class="ic-menu-back d-block d-lg-none" type="button", style="all: unset; cursor: pointer;">
-                        <span style="font-weight: bold" class="{% if session.lang == 'ar' %}icon-arrow-right{% else %}icon-arrow-left{% endif %} header-theme-icon-primary"></span>
-                    </button>
-                {% endif %}
-
-                <button onclick="openSlidingMenu()" class="ic menu icon-menu-top d-block d-lg-none" type="button" tabindex="1",   style="all: unset; cursor: pointer;">
-                    <span class="icon-menu_open_black_24dp-1 header-theme-icon-primary"></span>
-                </button>
-
-                <a href="/" style="width: auto; height: 100%; display: block">
-                    {% if settings.header_logo %}
-                        {% set logoUrl = settings.header_logo %}
-                    {% else %}
-                        {% set logoUrl = store.logo %}
-                    {% endif %}
-                    {% if settings.header_logo_mobile %}
-                        {% set logoUrlMobile = settings.header_logo_mobile %}
-                    {% elif store.settings.branding.mobile_app_logo %}
-                        {% set logoUrlMobile = store.settings.branding.mobile_app_logo %}
-                    {% endif %}
-
-                    <img class="image-logo{% if logoUrlMobile is defined and logoUrlMobile is not none %} d-none d-lg-block {% endif %}" src="{{ image_url(logoUrl, h=175, q=100) }}" alt="{{ store.name }}" style="width: auto; max-height: 100%" decoding="async" fetchpriority="high">
-
-                    {% if logoUrlMobile %}
-                        <img class="image-logo d-block d-lg-none" src="{{ image_url(logoUrlMobile, h=175, q=100) }}" alt="{{ store.name }}" style="width: auto; max-height: 100%" decoding="async" fetchpriority="high">
-                    {% endif %}
-                </a>
-                
-            </div>
-            <div class="p-2 d-none d-lg-flex align-items-center bd-highlight search-input lg-search-div flex-grow-1">
-
-                {% if not ('hide_search_bar' in settings.header_options) %}
-                <div class="form-group" style="position: relative; margin: 0px">
-                    <span class="icon-search search-input-icon" style="z-index: 1"></span>
-                    <div class="autocomplete" style="position: relative">
-                        <input type="text"
-                               data-cat-id="{{ category.id if category is defined else '' }}"
-                               class="form-control search-input-input"
-                               placeholder="{% if settings.header_search_placeholder %}{{ settings.header_search_placeholder }}{% else %}{{_("Search")}}{% endif %}"
-                        >
-                        <div class="autocomplete-items"></div>
-                    </div>
-                </div>
-                {% endif %}
-
-            </div>
-            <div class="bd-highlight d-flex align-items-center justify-content-end header-cart">
-                {% if not ('hide_search_bar' in settings.header_options) %}
-                <div class="d-block d-lg-none sm-search-icon">
-                    <span class="icon-search header-theme-icon-primary"></span>
-                </div>
-                {% endif %}
-                <div class="d-none d-lg-block">
-                    <a href="/cart" style="color: inherit">
-                        <h3 class="cart-header-total"></h3>
-                    </a>
-                </div>
-                <div style="position: relative">
-                    <a class="a-shopping-cart" href="{{ url_for('cart_page') }}" style="color: inherit">
-                        <span class="icon-shopping_cart_black_36dp-1-1 header-theme-icon-primary"><span class="path1"></span><span class="path2"></span></span>
-                        <span class="cart-badge d-none"></span>
-                    </a>
-                    {% if store.settings.checkout.gift_order_settings.is_gift_order_customer_motivation_enabled == '1' %}
-                      <div id="tooltip" class="d-none popover" role="tooltip">
-                        <div class="arrow"></div>
-                        <div class="gift-popover-body">
-                          <img src="{{ 'gift-popover-icon.svg' | asset_url }}" width="24" height="24" />
-                          <p class="h6 my-2">
-                            {{ _('Send as gift') }}
-                          </p>
-                          <button class="btn round primary d-block">
-                            <a href="/cart" class="no-border d-block">
-                              {{ _('continue') }}
-                            </a>
-                          </button>
-                        </div>
-                      </div>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <script>
 function openSlidingMenu() {
@@ -113,3 +25,149 @@ function openSlidingMenu() {
     }
 }
 </script>
+
+<div class="search-header ">
+	<div class="container-fluid">
+		<div class=" search-header-bar custom-header-content">
+			<div class="d-flex align-items-center bd-highlight header-logo">
+
+				<a href="javascript:void(0);" onclick="window.slidingMenu.open()" class="menu menu-top  mn-toggle-sidebar" tabindex="1">
+                    <span class="outer-ring">
+                        <span class="inner-ring"></span>
+                    </span>		
+                    
+				</a>
+
+				<a href="/" style="width: auto; height: 100%; display: flex">
+				
+					{% set logoUrl = header_settings.header_logo or store.logo %}
+					{% set logoUrlMobile = none %}
+					{% if header_settings.header_logo_mobile %}
+						{% set logoUrlMobile = header_settings.header_logo_mobile %}
+					{% elif store.settings.branding.mobile_app_logo %}
+						{% set logoUrlMobile = store.settings.branding.mobile_app_logo %}
+					{% endif %}
+
+					<img loading="lazy" class="image-logo {% if logoUrlMobile %} d-none d-lg-block {% endif %}" src="{{ image_url(logoUrl, h=175, q=85 ) }}" alt="{{ store.name }}" style="width: auto; max-height: 100%">
+
+					{% if logoUrlMobile %}
+						<img loading="lazy" class="image-logo d-block d-lg-none" src="{{ image_url(logoUrlMobile , h=175, q=100 ) }}" alt="{{ store.name }}" style="width: auto; max-height: 100%">
+					{% endif %}
+				</a>
+				
+                {% if not ('hide_search_bar' in header_options) %}
+                    <div class=" d-none d-lg-flex align-items-center bd-highlight search-input lg-search-div flex-grow-1">
+                        <div class="form-group" style="position: relative; margin: 0px">
+                            <span class="icon-search search-input-icon" style="z-index: 1"></span>
+                            <div class="autocomplete" style="position: relative">
+                                <input type="text" data-cat-id="" class="form-control search-input-input" placeholder="{% if settings.header_search_placeholder %} {{ settings.header_search_placeholder }} {% else %} {{ _("Search") }}  {% endif %}">
+                                <div class="autocomplete-items"></div>
+                            </div>
+                        </div>
+                    </div>
+				{% endif %}
+			</div>
+			<div class="header-flex">
+            {% set multiple_countries = store.countries | length > 0 %}
+          {% set multiple_languages = store.languages | length > 0 %}
+
+				{% if (multiple_countries and 'hide_country' not in header_options) or
+                (multiple_languages and 'hide_language' not in header_options) %}
+					<div class="language-currency-content " data-bs-toggle="modal" data-bs-target="#langCurrecyModal" style="cursor: pointer;">
+
+						{% if session.lang.code == 'en' %}
+							{% set change_to_lang = 'en' %}
+							{% set change_to_lang_name = 'English' %}
+
+						{% else %}
+							{% set change_to_lang = 'ar' %}
+							{% set change_to_lang_name = 'العربية' %}
+						{% endif %}
+						{% if multiple_languages and 'hide_language' not in header_options %}
+
+							<div class="lang-flag">
+								{% if not ('hide_country' in header_settings.header_options) %}
+									<div class="currency-button-content ">
+										<button class="c-btn currency-btn"><img loading="lazy" class="flag" alt="{{ session.country.name }}" src="https://flagsapi.com/{{ session.country.code }}/flat/32.png" height="30px" width="30px"  /></button>
+									</div>
+								{% endif %}
+								<div class="language-button-area d-flex justify-content-between">
+									<button type="submit" class='c-btn language-btn d-flex justify-content-between align-items-center'>
+										<span class="">{{ change_to_lang_name }}</span>&nbsp;
+										<span class="icon-language_white"></span>
+									</button>
+								</div>
+
+							{% endif %}
+						</div>
+
+						{% if (multiple_countries and 'hide_country' not in header_options) or
+                (multiple_languages and 'hide_language' not in header_options) %}
+							<div class="horizontal-line"></div>
+						{% endif %}
+						{% if session.lang == 'en' %}
+							
+<div class="currency-label en">{{session.currency.code}}</div>
+						{% else %}
+							<div class="currency-label ar">{{session.locale.region.currency_code}}</div>
+							
+						{% endif %}
+						
+
+					</div>
+				{% endif %}
+        <div class="bd-highlight d-flex align-items-center justify-content-end header-cart">
+        <div class="account-area">
+						{% if customer %}
+							<button type="button" onclick="window.location.href="{{ url_for('profile') }}" class="btn user account-btn">
+
+								<span style="position: relative; bottom: 2px">
+									<i class="bi bi-person"></i>
+								</span>
+							</button>
+						{% else %}
+							<button type="button" onclick="window.location.href="{{ url_for('profile') }}" class="btn btn-light login account-btn">
+								<span><i class="bi bi-person"></i><span class="login-text">&nbsp;{{ _("Login") }}&nbsp;</span></span>
+							</button>
+						{% endif %}
+					</div>
+					{% if not ('hide_search_bar' in header_options) %}
+						<div class=" d-flex d-lg-none sm-search-icon">
+							<i class="bi bi-search icon-search header-theme-icon-primary"></i>
+						</div>
+					{% endif %}
+					
+					<div style="position: relative">
+						<a class="a-shopping-cart" href="{{ url_for('cart_page') }}" style="color: inherit">
+							<i class="bi bi-cart3 icon-shopping_cart_black_36dp-1-1 cart-icon"></i>
+							<span class="cart-badge d-none"></span>
+						</a>
+						                    {% if store.settings.checkout.gift_order_settings.is_gift_order_customer_motivation_enabled == '1' %}
+							<div id="tooltip" class="d-none popover" role="tooltip">
+								<div class="arrow"></div>
+								<div class="gift-popover-body">
+									<img loading="lazy" src="{{ 'gift-popover-icon.svg' | asset_url }}" width="24" height="24"/>
+									<p class="h6 my-2">
+										{{ _('Send as gift') }}
+									</p>
+									<button class="btn round primary d-block">
+										<a href="{{ url_for('cart_page') }}" class="no-border d-block">
+											{{ _("continue") }}
+										</a>
+									</button>
+								</div>
+							</div>
+						{% endif %}
+					</div>
+					<div class=" d-none d-lg-none">
+						<a href="{{ url_for('cart_page') }}" class="cart-header-total" style="color: #fff"></a>
+					</div>
+
+				</div>
+
+
+				
+			</div>
+		</div>
+	</div>
+</div>

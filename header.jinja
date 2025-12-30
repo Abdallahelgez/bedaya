@@ -1,24 +1,17 @@
-<header id="{{ sectionId }}" section-id="{{ sectionId }}" class='d-flex flex-column'>
-
-    {# {% include 'template_for_store_messages' %} #}
-    {% set ab_settings=settings %}{% include 'components/header-announcement-bar.jinja' %}
-    {% set multiple_countries = store.countries | length > 1 %}
-    {% set multiple_languages = store.languages | length > 1 %}
-
-    {% set header_settings=settings %}{% include 'components/header-account-lang-currency.jinja' %}
-
-
-
-  <div id="fixed-header" style="z-index: 3">
+<header section-id="{{ sectionId }}" class='d-flex flex-column {% if  ('transparent' in settings.header_options)%}transparent{% endif %}'>
+  <div id="fixed-header" class="header-inner" style="z-index: 99">
     <!-- input search for mobile view -->
     <div style="z-index: 3">
-        {% set header_settings=settings %}{% include 'components/header-search-header.jinja' %}
+        {% set ab_settings=settings %}{% include 'components/header-announcement-bar.jinja' %}
+         {% set header_settings=settings %}{% include 'components/header-search-header.jinja' %}
+    
     </div>
-    <div style="position: relative; z-index: -1">
+    {# search on click #}
+    <div style="position: relative; z-index: 1">
         <div class="sm-search-div">
           <div class="autocomplete" style="position: relative">
             <input type="text"
-                   data-cat-id="{{ category.id if category is defined else '' }}"
+                   data-cat-id="{{ category.id }}"
                    class="form-control search-input-input"
                    placeholder="{% if settings.header_search_placeholder %}{{ settings.header_search_placeholder }}{% else %}{{ _('Search') }}{% endif %}"
             >
@@ -29,10 +22,13 @@
   </div>
 
     {% set menu_settings=settings %}{% include 'components/header-sliding-menu.jinja' %}
-    {% set menu_settings=settings %}{% include 'components/header-mega-menu.jinja' %}
+    {% set header_options = settings.header_options or [] %}
 
-    {% set show_country = 'hide_country' not in settings.header_options %}
-    {% set show_language = 'hide_language' not in settings.header_options %}
+{% set show_country = 'hide_country' not in header_options %}
+{% set show_language = 'hide_language' not in header_options %}
+{% set multiple_countries = store.countries | length > 0 %}
+{% set multiple_languages = store.languages | length > 0 %}
+
     
 
     {% if (show_country and multiple_countries) or (show_language and multiple_languages) %}
@@ -46,4 +42,5 @@
         </div>
       </div>
     {% endif %}
+
 </header>

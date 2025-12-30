@@ -4,7 +4,7 @@
          data-md-scroll-offset="130"
          data-sm-scroll-offset="94"
          class="hero-section1">
-  <div class="">
+  <div class="container-sec">
     <div class="hero-slider">
         {% for slide in safeget(settings, "slider", []) %}
          {% set key=loop.index0 %}
@@ -48,7 +48,7 @@
                 slidesToShow: 1,
                 slidesToScroll: 1,
                 infinite: true,
-                autoplay: true,
+                autoplay: false,
                 autoplaySpeed: 3000,
                 speed: 500,
                 adaptiveHeight: false,
